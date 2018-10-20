@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ResKey_dbModelStoreContainer" CdmEntityContainer="ResKey_dbEntities">
+    <EntitySetMapping Name="BaiDuInfo">
+      <EntityTypeMapping TypeName="ResKey_dbModel.BaiDuInfo">
+        <MappingFragment StoreEntitySet="BaiDuInfo">
+          <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+          <ScalarProperty Name="BaiDuUrl" ColumnName="BaiDuUrl" />
+          <ScalarProperty Name="TitleInfoID" ColumnName="TitleInfoID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TitleInfo">
+      <EntityTypeMapping TypeName="ResKey_dbModel.TitleInfo">
+        <MappingFragment StoreEntitySet="TitleInfo">
+          <ScalarProperty Name="IsOccupy" ColumnName="IsOccupy" />
+          <ScalarProperty Name="ModificationTime" ColumnName="ModificationTime" />
+          <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
+          <ScalarProperty Name="IsHandle" ColumnName="IsHandle" />
+          <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+          <ScalarProperty Name="NewTitle" ColumnName="NewTitle" />
+          <ScalarProperty Name="OldTitle" ColumnName="OldTitle" />
+          <ScalarProperty Name="OldID" ColumnName="OldID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="ResKey_dbModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="IsStep" ColumnName="IsStep" />
+          <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+          <ScalarProperty Name="UserNo" ColumnName="UserNo" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="TitleInfoID" ColumnName="TitleInfoID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

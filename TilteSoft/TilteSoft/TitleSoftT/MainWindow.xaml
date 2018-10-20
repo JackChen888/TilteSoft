@@ -1,0 +1,282 @@
+﻿<Window x:Class="TitleSoftT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TitleSoftT"
+        xmlns:converts="clr-namespace:TitleSoftT.Converts"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="660" Width="1250">
+    <Window.Resources>
+        <converts:IntToString x:Key="IntToString"></converts:IntToString>
+        <Style x:Key="PageTextBlock1" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#FF333333" />
+        </Style>
+        <!--首页上一页等-->
+        <Style x:Key="PageTextBlock2" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="23" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="#FF333333" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF000000" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--中间页数-->
+        <Style x:Key="PageTextBlock3" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="Height" Value="23" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="#FF333333" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF000000" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#FF000000" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="PageTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <!--<Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="/WFPSys;component/Images/Page_TextBack.png" ></ImageBrush>
+                </Setter.Value>
+            </Setter>-->
+            <Style.Triggers>
+                <Trigger Property="IsReadOnly" Value="True">
+                    <Setter Property="Background" Value="#FFCCCCCC" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="PageButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="bootGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2"  Height="80" Name="WrapPanels" >
+            <cef:ChromiumWebBrowser Name="cefWebBrowser"></cef:ChromiumWebBrowser>
+            <TextBlock  Margin="20,20" Text="当前用户：" FontSize="20"></TextBlock>
+            <TextBlock  Margin="5,20"  Background="Pink" Text="{Binding Account}" FontSize="20"></TextBlock>
+            <Button  Margin="20,20" FontSize="20" Height="30" Command="{Binding AddThirtyData}" Background="#ffffff" >获取30条数据</Button>
+            <!--<Button Margin="10,20" FontSize="20" Height="30" Command="{Binding AddFiftyData}" Background="#ffffff" >获取50条数据</Button>-->
+            <TextBlock  Margin="20,20" Text="搜索关键字：" FontSize="20"></TextBlock>
+            <TextBox Name="NewTitle"  Margin="10,20" Text="{Binding SelectItem.NewTitle}" Width="160"  FontSize="20"></TextBox>
+            <Button  Margin="10,20" Width="80" Name="TitleAndPicSelect" Click="TitleAndPicSelect_Click"  FontSize="20" Style="{DynamicResource MyButStyle}">查询</Button>
+          
+            <Button  Margin="10,20" Width="85" Name="SaveCheckPi"  Click="SaveCheckPi_Click" FontSize="20" Style="{DynamicResource MyButStyle}">下一步</Button>
+
+            <Button  Margin="10,20" Width="85" Name="OpenTitleAction" Click="OpenTitleAction_Click"  FontSize="20" Style="{DynamicResource MyButStyle}">操作库</Button>
+            
+            <Button  Margin="10,20" Width="120" Click="ClickNewTitle_Click" Name="ClickNewTitle"  FontSize="20" Style="{DynamicResource MyButStyle}">跳转新页面</Button>
+            
+            <!--<Button  Margin="30,30,10,1" Width="50" Name="Search" Click="Search_Click">查询</Button>-->
+            <TextBlock Height="20" Text="{Binding SavaPicMsg}" Background="Red" ></TextBlock>
+        </WrapPanel>
+        <StackPanel Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Stretch"   Grid.Row="3">
+            <Grid>
+                <Border CornerRadius="3" Background="Transparent" BorderBrush="{x:Null}">
+                    <Grid HorizontalAlignment="Stretch" Margin="5 0 5 0" VerticalAlignment="Top" Width="Auto" Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="500" MinWidth="500"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name="tbkRecords" Grid.Column="0" Style="{StaticResource PageTextBlock1}" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                            <Grid>
+                                <Grid.RowDefinitions >
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"  Name="btnFirst" Command="{Binding BtnFirst}" Style="{DynamicResource MyButStyle}" FontSize="15">首页</Button>
+                                <Button Grid.Column="1" Name="btnPrev" Command="{Binding BtnPrev}" FontSize="15" Style="{DynamicResource MyButStyle}">上一页</Button>
+                                <Grid Grid.Column="2" Name="grid"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" ></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                                <Button Grid.Column="3" x:Name="btnNext" Command="{Binding BtnNext}" Style="{DynamicResource MyButStyle}" FontSize="15">下一页</Button>
+                                <Button Grid.Column="4" x:Name="btnLast" Command="{Binding BtnLast}" Style="{DynamicResource MyButStyle}" FontSize="15" >末页</Button>
+                                <TextBox Grid.Column="5" x:Name="pageGo" MaxLength="6" IsReadOnly="True" Style="{StaticResource PageTextBox}" />
+                                <Button Grid.Column="6" x:Name="btnGo" Content="GO" IsEnabled="False" Style="{StaticResource PageButton}" />
+                                <TextBlock Grid.Column="7" Height="20" Text="当前第" ></TextBlock>
+                                <TextBlock Grid.Column="8" Height="20" Text="{Binding PageNo}"></TextBlock>
+                                <TextBlock Grid.Column="9" Height="20" Text="页" ></TextBlock>
+                                <TextBlock Grid.Column="10" Height="20" Text="总页数" ></TextBlock>
+                                <TextBlock Grid.Column="11" Height="20" Text="{Binding PageMax}"></TextBlock>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </StackPanel>
+
+
+        <StackPanel Name="PicStackPanel" Orientation="Horizontal" Grid.ColumnSpan="2"  Grid.Row="2" Margin="0,23,543,74">
+            <DataGrid ItemsSource="{Binding Items}" IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" SelectedItem="{Binding SelectItem}" Width="680" x:Name="dataGrid"  AutoGenerateColumns="False" Margin="10,10,10,10">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontFamily" Value="SimHei"/>
+                        <Setter Property="Foreground" Value="#104E8B"/>
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Height" Value="Auto" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id"  Binding="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <DataGridTextColumn  Header="旧标签" Binding="{Binding OldTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <DataGridTextColumn  Header="新标签" Binding="{Binding NewTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <DataGridTextColumn  Header="录入时间" Binding="{Binding UpTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <DataGridTextColumn  Header="是否审批" Binding="{Binding IsAdd,Converter={StaticResource IntToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <DataGridTemplateColumn Header="隐藏无效标签" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button   Command="{Binding TitleHandle}" Click="Handle_Click" Name="Handle">隐藏标签</Button>
+                                <!--<Button  Command="{Binding Path=Edit}">百度搜索</Button>-->
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+
+
+                    <!--<DataGridTemplateColumn Header="搜索" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button   Command="{Binding BaiDuSearch}" Name="BaiDuSearch" Click="BaiDuSearch_Click">百度搜索</Button>
+                                -->
+                    <!--<Button  Command="{Binding Path=Edit}">百度搜索</Button>-->
+                    <!--
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Name="PStackPanel" Grid.Row="2" Grid.ColumnSpan="2" Margin="10,10,500,10" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <ListView x:Name="listviewPic" Width="400"  Height="880" Margin="10" ItemsSource="{Binding PictureControlViewModels}" SelectedItem="{Binding PicSelectItem}" >
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn x:Name="gvc2" Width="300">
+                                <GridViewColumn.Header>
+                                    <TextBlock >图片列Title</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--Source ="{Binding DataContext.MyImage,RelativeSource={RelativeSource AncestorType=ListViewItem}}"-->
+                                        <!--<Image Source="{Binding DataContext.ImgPath,RelativeSource={RelativeSource AncestorType=ListViewItem}}" />-->
+                                        <Image Height="300"  Width="200" Source="{Binding  Url}"  MouseLeftButtonUp="Image_MouseLeftButtonUp"  MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="100">
+                                <GridViewColumn.Header>
+                                    <TextBlock >选中</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--Source ="{Binding DataContext.MyImage,RelativeSource={RelativeSource AncestorType=ListViewItem}}"-->
+                                        <!--<Image Height="200" Source="{Binding Url,RelativeSource={RelativeSource AncestorType=ListViewItem}}" />-->
+                                        <CheckBox  IsChecked="{Binding IsCheck}" >选中</CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button   Width="85" Height="40" Name="SaveCheckPic" Command="{Binding SavaPic}"  FontSize="20" Style="{DynamicResource MyButStyle}">保存图片</Button>
+
+        </StackPanel>
+
+
+        <ListView x:Name="listview" Grid.Row="1" Visibility="Collapsed">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn x:Name="gvc">
+                            <GridViewColumn.Header>
+                                <TextBlock>图片列Title</TextBlock>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path= PicModle.Url}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="100">
+                            <GridViewColumn.Header>
+                                <TextBlock>ID</TextBlock>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PicModle.Id}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

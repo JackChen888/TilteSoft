@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TitleSoftT.View.ImageItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:TitleSoftT.View"
+             mc:Ignorable="d" 
+            d:DesignHeight="300" MaxHeight="300" MaxWidth="300" d:DesignWidth="300" BorderBrush="BlanchedAlmond" BorderThickness="2">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image x:FieldModifier="public" x:Name="imgShow" Grid.Row="1" Width="300" Height="300" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding StateImageMouseLeftButtonDown}" CommandParameter="{Binding ElementName=imgCheck}"/>
+                </i:EventTrigger>
+                <!--<i:EventTrigger EventName="MouseEnter">
+                    <i:InvokeCommandAction Command="{Binding StateImageMouseEnter}" CommandParameter="{Binding ElementName=stateImage}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding StateImageMouseLeave}" CommandParameter="{Binding ElementName=stateImage}"/>
+                </i:EventTrigger>-->
+            </i:Interaction.Triggers>
+        </Image>
+        <Image x:FieldModifier="public" x:Name="imgCheck" Grid.Row="0" Height="26" Width="26" Source="{Binding imgCheckUrl}" Visibility="{Binding isImgCheck}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ResKey_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BaiDuInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleInfoID" Type="int" />
+          <Property Name="BaiDuUrl" Type="varchar" MaxLength="2000" />
+          <Property Name="IsEnable" Type="int" />
+          <Property Name="UpTime" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="TitleInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OldID" Type="int" Nullable="false" />
+          <Property Name="OldTitle" Type="varchar" MaxLength="500" />
+          <Property Name="NewTitle" Type="varchar" MaxLength="500" />
+          <Property Name="UpTime" Type="varchar" MaxLength="2000" />
+          <Property Name="IsHandle" Type="int" />
+          <Property Name="IsAdd" Type="int" />
+          <Property Name="ModificationTime" Type="varchar" MaxLength="2000" />
+          <Property Name="IsOccupy" Type="int" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleInfoID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsEnable" Type="int" />
+          <Property Name="IsStep" Type="int" />
+        </EntityType>
+        <Association Name="FK_BaiDuInfo_TitleInfo">
+          <End Role="TitleInfo" Type="Self.TitleInfo" Multiplicity="0..1" />
+          <End Role="BaiDuInfo" Type="Self.BaiDuInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TitleInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BaiDuInfo">
+              <PropertyRef Name="TitleInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_TitleInfo">
+          <End Role="TitleInfo" Type="Self.TitleInfo" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TitleInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="TitleInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ResKey_dbModelStoreContainer">
+          <EntitySet Name="BaiDuInfo" EntityType="Self.BaiDuInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TitleInfo" EntityType="Self.TitleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BaiDuInfo_TitleInfo" Association="Self.FK_BaiDuInfo_TitleInfo">
+            <End Role="TitleInfo" EntitySet="TitleInfo" />
+            <End Role="BaiDuInfo" EntitySet="BaiDuInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_TitleInfo" Association="Self.FK_UserInfo_TitleInfo">
+            <End Role="TitleInfo" EntitySet="TitleInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ResKey_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ResKey_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BaiDuInfo" EntityType="ResKey_dbModel.BaiDuInfo" />
+          <EntitySet Name="TitleInfo" EntityType="ResKey_dbModel.TitleInfo" />
+          <EntitySet Name="UserInfo" EntityType="ResKey_dbModel.UserInfo" />
+          <AssociationSet Name="FK_BaiDuInfo_TitleInfo" Association="ResKey_dbModel.FK_BaiDuInfo_TitleInfo">
+            <End Role="TitleInfo" EntitySet="TitleInfo" />
+            <End Role="BaiDuInfo" EntitySet="BaiDuInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_TitleInfo" Association="ResKey_dbModel.FK_UserInfo_TitleInfo">
+            <End Role="TitleInfo" EntitySet="TitleInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BaiDuInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleInfoID" Type="Int32" />
+          <Property Name="BaiDuUrl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="IsEnable" Type="Int32" />
+          <Property Name="UpTime" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TitleInfo" Relationship="ResKey_dbModel.FK_BaiDuInfo_TitleInfo" FromRole="BaiDuInfo" ToRole="TitleInfo" />
+        </EntityType>
+        <EntityType Name="TitleInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OldID" Type="Int32" Nullable="false" />
+          <Property Name="OldTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="NewTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UpTime" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="IsHandle" Type="Int32" />
+          <Property Name="IsAdd" Type="Int32" />
+          <Property Name="ModificationTime" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="IsOccupy" Type="Int32" />
+          <NavigationProperty Name="BaiDuInfo" Relationship="ResKey_dbModel.FK_BaiDuInfo_TitleInfo" FromRole="TitleInfo" ToRole="BaiDuInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="ResKey_dbModel.FK_UserInfo_TitleInfo" FromRole="TitleInfo" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleInfoID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsEnable" Type="Int32" />
+          <Property Name="IsStep" Type="Int32" />
+          <NavigationProperty Name="TitleInfo" Relationship="ResKey_dbModel.FK_UserInfo_TitleInfo" FromRole="UserInfo" ToRole="TitleInfo" />
+        </EntityType>
+        <Association Name="FK_BaiDuInfo_TitleInfo">
+          <End Type="ResKey_dbModel.TitleInfo" Role="TitleInfo" Multiplicity="0..1" />
+          <End Type="ResKey_dbModel.BaiDuInfo" Role="BaiDuInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TitleInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BaiDuInfo">
+              <PropertyRef Name="TitleInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_TitleInfo">
+          <End Type="ResKey_dbModel.TitleInfo" Role="TitleInfo" Multiplicity="1" />
+          <End Type="ResKey_dbModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TitleInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="TitleInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ResKey_dbModelStoreContainer" CdmEntityContainer="ResKey_dbEntities">
+          <EntitySetMapping Name="BaiDuInfo">
+            <EntityTypeMapping TypeName="ResKey_dbModel.BaiDuInfo">
+              <MappingFragment StoreEntitySet="BaiDuInfo">
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="BaiDuUrl" ColumnName="BaiDuUrl" />
+                <ScalarProperty Name="TitleInfoID" ColumnName="TitleInfoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TitleInfo">
+            <EntityTypeMapping TypeName="ResKey_dbModel.TitleInfo">
+              <MappingFragment StoreEntitySet="TitleInfo">
+                <ScalarProperty Name="IsOccupy" ColumnName="IsOccupy" />
+                <ScalarProperty Name="ModificationTime" ColumnName="ModificationTime" />
+                <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
+                <ScalarProperty Name="IsHandle" ColumnName="IsHandle" />
+                <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+                <ScalarProperty Name="NewTitle" ColumnName="NewTitle" />
+                <ScalarProperty Name="OldTitle" ColumnName="OldTitle" />
+                <ScalarProperty Name="OldID" ColumnName="OldID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="ResKey_dbModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="IsStep" ColumnName="IsStep" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="UserNo" ColumnName="UserNo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="TitleInfoID" ColumnName="TitleInfoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

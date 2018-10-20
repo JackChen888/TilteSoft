@@ -1,0 +1,98 @@
+﻿<Window x:Class="TitleSoftT.View.AddTitleAndPic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TitleSoftT.View"
+        mc:Ignorable="d"
+        Name="AddTitleAndPicWin" Title="标签辅助小软件2.0" Height="650" Width="950">
+    <Grid>
+        <StackPanel Name="PicStackPanel" Orientation="Horizontal" Height="400"  >
+            <GroupBox Header="标题信息" Margin="10 20 10 10" >
+                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,0,0,4" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="100" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel>
+                        <Label Content="原关键字" Target="{Binding ElementName=UserName}"/>
+                        <TextBox Width="150" 
+                                 Text="{Binding OldTitle,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="现关键字" Target="{Binding ElementName=UserEmail}"/>
+                        <TextBox Width="150" Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="录入时间" Target="{Binding ElementName=UserPhone}"/>
+                        <TextBox Width="150" Text="{Binding ValidateUI.UserPhone,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="用户名字" Target="{Binding ElementName=UserPhone}"/>
+                        <TextBox Width="150" Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="用户编号" Target="{Binding ElementName=UserPhone}"/>
+                        <TextBox Width="150" Text="{Binding UserNo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+                    <!--<StackPanel>
+                        <Label Foreground="Red" Content="提示：验证全部通过的时候提交按钮可操作！" Width="250"  ></Label>
+                    </StackPanel>-->
+                    <Button Content="出错还原" Margin="100,16,0,0" Style="{DynamicResource MyButStyle}"  HorizontalAlignment="Left" Command="{Binding SendCommand}" CommandParameter="{Binding ElementName=AddTitleAndPicWin}"/>
+                    <TextBlock Background="Pink"  Margin="80,30,20,20" FontSize="20" Width="150" Text="{Binding SavaPicMsg,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+            </GroupBox>
+            <ListView x:Name="listviewPic"  Height="380" Margin="10" ItemsSource="{Binding PicItmes}" >
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn x:Name="gvc2" Width="600">
+                                <GridViewColumn.Header>
+                                    <TextBlock >图片列Title</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--Source ="{Binding DataContext.MyImage,RelativeSource={RelativeSource AncestorType=ListViewItem}}"-->
+                                        <!--<Image Source="{Binding DataContext.ImgPath,RelativeSource={RelativeSource AncestorType=ListViewItem}}" />-->
+                                        <Image Height="400" Source="{Binding  Url}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <!--<GridViewColumn Width="100">
+                                <GridViewColumn.Header>
+                                    <TextBlock >选中</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        --><!--Source ="{Binding DataContext.MyImage,RelativeSource={RelativeSource AncestorType=ListViewItem}}"-->
+                                        <!--<Image Height="200" Source="{Binding Url,RelativeSource={RelativeSource AncestorType=ListViewItem}}" />--><!--
+                                        <CheckBox  IsChecked="{Binding IsCheck}" >选中</CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+        <GroupBox>
+        
+        </GroupBox>
+    </Grid>
+</Window>

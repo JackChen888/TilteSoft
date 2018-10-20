@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResKey_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BaiDuInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TitleInfoID" Type="int" />
+    <Property Name="BaiDuUrl" Type="varchar" MaxLength="2000" />
+    <Property Name="IsEnable" Type="int" />
+    <Property Name="UpTime" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="TitleInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OldID" Type="int" Nullable="false" />
+    <Property Name="OldTitle" Type="varchar" MaxLength="500" />
+    <Property Name="NewTitle" Type="varchar" MaxLength="500" />
+    <Property Name="UpTime" Type="varchar" MaxLength="2000" />
+    <Property Name="IsHandle" Type="int" />
+    <Property Name="IsAdd" Type="int" />
+    <Property Name="ModificationTime" Type="varchar" MaxLength="2000" />
+    <Property Name="IsOccupy" Type="int" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TitleInfoID" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserNo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="IsEnable" Type="int" />
+    <Property Name="IsStep" Type="int" />
+  </EntityType>
+  <Association Name="FK_BaiDuInfo_TitleInfo">
+    <End Role="TitleInfo" Type="Self.TitleInfo" Multiplicity="0..1" />
+    <End Role="BaiDuInfo" Type="Self.BaiDuInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TitleInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BaiDuInfo">
+        <PropertyRef Name="TitleInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserInfo_TitleInfo">
+    <End Role="TitleInfo" Type="Self.TitleInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TitleInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="TitleInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResKey_dbModelStoreContainer">
+    <EntitySet Name="BaiDuInfo" EntityType="Self.BaiDuInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TitleInfo" EntityType="Self.TitleInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BaiDuInfo_TitleInfo" Association="Self.FK_BaiDuInfo_TitleInfo">
+      <End Role="TitleInfo" EntitySet="TitleInfo" />
+      <End Role="BaiDuInfo" EntitySet="BaiDuInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInfo_TitleInfo" Association="Self.FK_UserInfo_TitleInfo">
+      <End Role="TitleInfo" EntitySet="TitleInfo" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
